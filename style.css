@@ -1,0 +1,10 @@
+body {
+	background: black;
+	margin: auto;
+	display: table;
+}
+
+h1 {
+	font-size: 100px;
+	color: yellowgreen;
+}
