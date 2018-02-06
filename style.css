@@ -1,4 +1,4 @@
-body {
+body, #button {
 	background: black;
 	margin: auto;
 	display: table;
@@ -7,4 +7,15 @@ body {
 h1 {
 	font-size: 100px;
 	color: yellowgreen;
+}
+
+#button {
+	background: yellowgreen;
+	color: black;
+	padding: 10px;
+	text-decoration: none;
+}
+
+#button:hover {
+	background: rgb(123, 165, 39);
 }
