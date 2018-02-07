@@ -1,20 +1,39 @@
 'use strict'; let p = console.log;
 
-let start = prompt('Input your IMS', '');
+let user = document.getElementById('output');
 
-alert( analyze(start) );
+function moreInput() {
+	let n = prompt('Need input few IMC?\nCount:','');
+	if ( +n ) {
+		let result = '';
+		for(let i = 0; i < n; i++) {
+			result += (i+1) + ') ' + analyze( prompt('IMC:','') ) +';\n';
+		}
+		return user.value = result;
+	}
+	user.style.textAlign = "center";
+	user.style.fontSize = "50px";
+	user.value = 'Canceled';
+}
+
+function singleInput() {
+	let start = prompt('Input your IMS', '');
+	user.value = ( analyze(start) );
+}
 
 function analyze(input) {
 	if (input == null) {
+		user.style.textAlign = "center";
+		user.style.fontSize = "50px";
 		return "Empty IMC";
 	}
 	let result = '';
-	let latin = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"];
-	input = input.toUpperCase();
+	let latin = ["R","\"","K","'"];
 
-	if( !!~latin.indexOf(input[0]) ) {
+	if( !!~latin.indexOf(input[0]) || !!~latin.indexOf(input[3]) ) {
 		input = latinSupport(input);
 	}
+	input = input.toUpperCase();
 	let ims = input;
 
 	let part1 = parseStr(input);
@@ -37,7 +56,7 @@ function analyze(input) {
 		result += ', модифікація ' + input; 
 	}
 
-	return ims + ' - ' + result;
+	return ims + ' – ' + result;
 }
 
 function analyzeArea(string) {
@@ -48,7 +67,7 @@ function analyzeArea(string) {
 			imsMaterial = ['М', 'Н', 'Р', 'А', 'Ф', 'Б', 'Е'],
 			imsMaterialAns = ['металокерамічна, ', 'mini металокерамічна, ', 'пластмасовий DIP, ', 'mini пластмасовий DIP, ', 'mini пластмасовий DIP (інша тех.), ', 'безкорпусний, ', 'металополімерний DIP'];
 	
-	if (len == 0) return '';
+	if (len == 0) return 'Внутрішня, ';
 
 	if (len > 0)	result += imsFromAns[ imsFrom.indexOf(string[0]) ];
 
