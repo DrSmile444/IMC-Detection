@@ -1,13 +1,21 @@
 'use strict'; let p = console.log;
 
-let start = //prompt('Input your IMS', 'К155ЛА3');
-'КМ155ЛА3';
+let start = prompt('Input your IMS', '');
 
-p( analyze(start) );
+alert( analyze(start) );
 
 function analyze(input) {
-	let result = '', ims = input;
+	if (input == null) {
+		return "Empty IMC";
+	}
+	let result = '';
+	let latin = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"];
 	input = input.toUpperCase();
+
+	if( !!~latin.indexOf(input[0]) ) {
+		input = latinSupport(input);
+	}
+	let ims = input;
 
 	let part1 = parseStr(input);
 	result += analyzeArea(part1);
@@ -98,4 +106,18 @@ function parseStr(string) {
 		else break;
 	}
 	return string.slice(0,count);
+}
+
+function latinSupport(string) {
+	let result = string.split('');
+	let latin = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "z", "x", "c", "v", "b", "n", "m", ",", ".", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "{", "}", "A", "S", "D", "F", "G", "H", "J", "K", "L", ":", "\"", "Z", "X", "C", "V", "B", "N", "M", "<", ">"]
+	let cyrilic = ["й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш", "Щ", "З", "Х", "Ъ", "Ф", "Ы", "В", "А", "П", "Р", "О", "Л", "Д", "Ж", "Э", "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю"];
+
+	for (let i = 0, n = string.length; i < n; i++) {
+		if ( !!~latin.indexOf(string[i]) ) {
+			result[i] = cyrilic[latin.indexOf(string[i])];
+		}
+	}
+
+	return result.join('');
 }
