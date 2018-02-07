@@ -3,25 +3,25 @@
 let start = //prompt('Input your IMS', 'К155ЛА3');
 'КМ155ЛА3';
 
-p( anylize(start) );
+p( analyze(start) );
 
-function anylize(input) {
+function analyze(input) {
 	let result = ''; p(input);
 	input = input.toUpperCase();
 
 	let part1 = parseStr(input);
-	result += anylizeArea(part1);
+	result += analyzeArea(part1);
 	input = input.slice(part1.length);
 
 	let part2 = parseInt(input);
-	result += anylizeSeria(part2); // дописать анализатор тип ИМС, переименовать функцию, логическая группа ИМС
+	result += analyzeSeria(part2); // дописать анализатор тип ИМС, переименовать функцию, логическая группа ИМС
 
 	p( part2 )
 
 	return result;
 }
 
-function anylizeArea(string) {
+function analyzeArea(string) {
 	let result = '', len = string.length;
 
 	let imsFrom = ["К", "Э"],
@@ -38,7 +38,7 @@ function anylizeArea(string) {
 	return result;
 }
 
-function anylizeSeria(number) {
+function analyzeSeria(number) {
 	let result = '', flag = 0;
 	number = number+'';
 
@@ -55,7 +55,7 @@ function anylizeSeria(number) {
 	return result;
 }
 
-function anylizeGroup(string) {
+function analyzeGroup(string) {
 	let imsGroup = ['ЛИ', 'ЛЛ', 'ЛН', 'ЛА', 'ЛЕ', 'ЛС', 'ЛБ', 'ЛР', 'ЛК', 'ЛК', 'ЛД', 'ЛП'],
 			imsGroupAns = ['і (кон\'юнктор)', 'або (альт-або)', 'не (інвертор)', 'і-не (штрих шефера)', 'або-не (стрілка пірса)', 'і-або (комплексні МС)', 'і-не, або-не (комплексні мс, стрілка + штрих)', 'і-або-не (комплексні МС і полярними входами)', 'і-або-не, і-або (комплексні МС с полярними входами, стрілка + штрих)', 'або-не, або', 'розширені', 'інші']
 }
