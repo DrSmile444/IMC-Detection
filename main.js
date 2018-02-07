@@ -6,7 +6,7 @@ let start = //prompt('Input your IMS', 'К155ЛА3');
 p( analyze(start) );
 
 function analyze(input) {
-	let result = ''; p(input);
+	let result = '', ims = input;
 	input = input.toUpperCase();
 
 	let part1 = parseStr(input);
@@ -14,11 +14,22 @@ function analyze(input) {
 	input = input.slice(part1.length);
 
 	let part2 = parseInt(input);
-	result += analyzeSeria(part2); // дописать анализатор тип ИМС, переименовать функцию, логическая группа ИМС
+	result += analyzeSeria(part2);
+	input = input.slice( (part2+'').length );
 
-	p( part2 )
+	let part3 = parseStr(input);
+	result += analyzeGroup(part3);
+	input = input.slice(part3.length);
 
-	return result;
+	let part4 = parseInt(input);
+	result += analyzeDate(part4);
+	input = input.slice( (part4+'').length );
+
+	if (input.length != 0) {
+		result += ', модифікація ' + input; 
+	}
+
+	return ims + ' - ' + result;
 }
 
 function analyzeArea(string) {
@@ -40,7 +51,7 @@ function analyzeArea(string) {
 
 function analyzeSeria(number) {
 	let result = '', flag = 0;
-	number = number+'';
+	number += '';
 
 	if (number[0] % 2 == 0) result += 'гібридна, ';
 	if (number[0] == 1 || number[0] == 5 || number[0] == 7) result += 'напівпровідникова, ';
@@ -56,8 +67,28 @@ function analyzeSeria(number) {
 }
 
 function analyzeGroup(string) {
+	let result = '';
+
 	let imsGroup = ['ЛИ', 'ЛЛ', 'ЛН', 'ЛА', 'ЛЕ', 'ЛС', 'ЛБ', 'ЛР', 'ЛК', 'ЛК', 'ЛД', 'ЛП'],
-			imsGroupAns = ['і (кон\'юнктор)', 'або (альт-або)', 'не (інвертор)', 'і-не (штрих шефера)', 'або-не (стрілка пірса)', 'і-або (комплексні МС)', 'і-не, або-не (комплексні мс, стрілка + штрих)', 'і-або-не (комплексні МС і полярними входами)', 'і-або-не, і-або (комплексні МС с полярними входами, стрілка + штрих)', 'або-не, або', 'розширені', 'інші']
+			imsGroupAns = ["і (кон'юнктор), ", "або (альт-або), ", "не (інвертор), ", "і-не (штрих шефера), ", "або-не (стрілка пірса), ", "і-або (комплексні МС), ", "і-не, або-не (комплексні мс, стрілка + штрих), ", "і-або-не (комплексні МС і полярними входами), ", "і-або-не, і-або (комплексні МС с полярними входами, стрілка + штрих), ", "або-не, або, ", "розширені, ", "інші, "]
+	if (!!~imsGroup.indexOf(string)) {
+		result += imsGroupAns[imsGroup.indexOf(string)];
+	} else alert('Group "' + string + '" is not include! Try pick another.');
+	
+	return result;
+}
+
+function analyzeDate(number) {
+	let result = '';
+
+	number += '';
+	if (number.length <= 2) {
+		result += '84-, '
+	} else {
+		result += '84+, '
+	}
+
+	return result + number + ' - номер розробки';
 }
 
 function parseStr(string) {
@@ -68,9 +99,3 @@ function parseStr(string) {
 	}
 	return string.slice(0,count);
 }
-
-	// if (number.length == 2) {
-	// 	result += '84-, '
-	// } else {
-	// 	result += '84+, '
-	// }
