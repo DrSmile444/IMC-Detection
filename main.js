@@ -29,11 +29,12 @@ function analyze(input) {
 	}
 	let result = '';
 	let latin = ["R","\"","K","'"];
+	input = input.toUpperCase();
 
 	if( !!~latin.indexOf(input[0]) || !!~latin.indexOf(input[3]) ) {
 		input = latinSupport(input);
 	}
-	input = input.toUpperCase();
+	
 	let ims = input;
 
 	let part1 = parseStr(input);
